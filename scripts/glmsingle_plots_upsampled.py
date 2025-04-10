@@ -45,7 +45,7 @@ with open(os.path.join(code_folder, "code_pairs_ses-02.txt"), "r") as file:
 
 # %%
 
-## Parameters
+# parameters
 stimdur = 2
 tr_old = 1.15
 tr_new = 1
@@ -175,7 +175,7 @@ def DiagnosticFigures(ParticipantID, participant_fmri_data, participant_csr_desi
   plt.tight_layout()
   plt.savefig(glm_plot_folder + ParticipantID + "_" + inputtype + "_glmsingle_betas.png", dpi=300)
 
-  # Figure 2. - Reliability
+  # reliability plot
   nblocks = 8
   xyzn = (xyz[0],xyz[1],xyz[2],nblocks)
   # consolidate design matrices
@@ -212,7 +212,7 @@ def DiagnosticFigures(ParticipantID, participant_fmri_data, participant_csr_desi
   modelnames = list(models.keys())
   n_cond = repindices.shape[1]
 
-  # for each beta version...
+  # for each beta version
   for m in range(len(modelnames)):
     print(f'computing reliability for beta version: {modelnames[m]}')
     time.sleep(1)
@@ -224,7 +224,7 @@ def DiagnosticFigures(ParticipantID, participant_fmri_data, participant_csr_desi
     # create output volume for voxel reliability scores
     rels = np.full((x,y,z),np.nan)
 
-    # loop through voxels in the 3D volume...
+    # loop through voxels in the 3D
     for xx in tqdm(range(x)):
         for yy in range(y):
             for zz in range(z):
@@ -241,7 +241,6 @@ def DiagnosticFigures(ParticipantID, participant_fmri_data, participant_csr_desi
 
     vox_reliabilities.append(rels)
 
-  # ROI, and plot using a bar graph.
   comparison = []
   for vr in vox_reliabilities:
       comparison.append(np.nanmedian(vr))

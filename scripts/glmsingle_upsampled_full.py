@@ -38,7 +38,7 @@ out_folder = "/mnt/alex/bids_format/derivatives/upsample/ses-02/"
 code_folder = "/mnt/alex/bids_format/code/"
 
 
-## Parameters
+# parameters
 stimdur = 2
 tr_old = 1.15
 tr_new = 1
@@ -49,7 +49,7 @@ sumTR = 654
 
 participant_list = open(os.path.join(code_folder, "subjects_ses-02.txt")).read().splitlines()
 
-## ID corresp
+# ID corresp
 expid_mrid_map = {}
 with open(os.path.join(code_folder, "code_pairs_ses-02.txt"), "r") as file:
     next(file)
@@ -58,7 +58,7 @@ with open(os.path.join(code_folder, "code_pairs_ses-02.txt"), "r") as file:
         expid_mrid_map[expid] = participant_id
 
 
-## Upsampling
+# upsampling
 def Upsample(participant_list):
     for ParticipantID in participant_list:
         for r in ['1', '2']:
@@ -105,7 +105,7 @@ def Upsample(participant_list):
                 plt.subplot(212)
                 plt.plot(img.get_fdata()[75,75,35,:])
                 plt.savefig(os.path.join(out_folder, f"{ParticipantID}/MapRun{run_num}.feat/upsampled_diff.png"))
-## GLMSingle
+# GLMSingle
 def GLMsingleWrapper(expid, ParticipantID, inputf):
     glm_single_folder_participant = os.path.join(glm_single_folder, ParticipantID, inputf.split('.')[0])
     os.makedirs(glm_single_folder_participant, exist_ok=True)
@@ -113,7 +113,7 @@ def GLMsingleWrapper(expid, ParticipantID, inputf):
     output_file = os.path.join(glm_single_folder_participant, "TYPED_FITHRF_GLMDENOISE_RR.npy")
 
     if os.path.exists(output_file):
-        print("✅ GLMsingle output already exists. Skipping...")
+        print("GLMsingle output already exists. Skipping...")
         return
     
     participant_fmri_data = CollectFMRI(ParticipantID, inputf)
@@ -262,7 +262,7 @@ def RunGLMsingle(participant_csr_designs, participant_fmri_data, inputf, glm_sin
 
     print(f"GLMsingle completed in {time.strftime('%H:%M:%S', time.gmtime(time.time() - start_time))}")
 
-## Main execution
+# main execution
 if __name__ == "__main__":
     #print("Starting fMRI upsampling...")
     #Upsample(participant_list)
